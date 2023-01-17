@@ -1,4 +1,4 @@
-# Copyright (c) 2017-2022 SUSE LLC
+# Copyright (c) 2017-2023 SUSE LLC
 # Licensed under the terms of the MIT license.
 
 @scope_openscap
@@ -23,15 +23,15 @@ Feature: OpenSCAP audit of Salt minion
     When I follow "Audit" in the content area
     And I follow "Schedule" in the content area
     And I wait at most 30 seconds until I do not see "This system does not yet have OpenSCAP scan capability." text, refreshing the page
-    And I enter "--profile Default" as "params"
-    And I enter "/usr/share/openscap/scap-yast2sec-xccdf.xml" as "path"
+    And I enter "--profile standard" as "params"
+    And I enter "/usr/share/xml/scap/ssg/content/ssg-sle15-ds-1.2.xml" as "path"
     And I click on "Schedule"
     Then I should see a "XCCDF scan has been scheduled" text
     And I wait at most 500 seconds until event "OpenSCAP xccdf scanning" is completed
 
   Scenario: Check results of the audit job on the minion
     When I follow "Audit" in the content area
-    And I follow "xccdf_org.open-scap_testresult_Default"
+    And I follow "xccdf_org.open-scap_testresult_xccdf_org.ssgproject.content_profile_standard"
     Then I should see a "Details of XCCDF Scan" text
     And I should see a "Default" text
     And I should see a "XCCDF Rule Results" text
@@ -44,8 +44,8 @@ Feature: OpenSCAP audit of Salt minion
     When I follow "Audit" in the content area
     And I follow "Schedule" in the content area
     And I wait at most 30 seconds until I do not see "This system does not yet have OpenSCAP scan capability." text, refreshing the page
-    And I enter "--profile Default" as "params"
-    And I enter "/usr/share/openscap/scap-yast2sec-xccdf.xml" as "path"
+    And I enter "--profile standard" as "params"
+    And I enter "/usr/share/xml/scap/ssg/content/ssg-sle15-ds-1.2.xml" as "path"
     And I click on "Schedule"
     Then I should see a "XCCDF scan has been scheduled" text
     When I wait for the OpenSCAP audit to finish
